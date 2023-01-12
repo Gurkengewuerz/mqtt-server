@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+
+  server:
+    image: gurken2108/mqtt-server:latest
+    environment:
+      PATH_AUTH_FILE: "/config/auth.json"
+      PATH_PERSISTENCE_FILE: "/config/storage"
+      MQTT_ENABLE_RETAIN: "false"
+      #HTTP_URL_AUTH: ""
+      #HTTP_URL_ACL: ""
+    restart: unless-stopped
+    volumes:
+      - "./docker-data/:/config/"
+    ports:
+      - "1882:1882"
+      - "1883:1883"
+    logging:
+      driver: "local"
+      options:
+        max-size: "10m"
+        max-file: "5"
